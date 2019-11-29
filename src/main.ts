@@ -18,7 +18,7 @@ export async function updateYaml(filePath: string, keys: string[], value: string
 
 async function run() {
     let filePath = core.getInput("file_path", {required: true});
-    let keys = core.getInput("keys", {required: true}).split(",");
+    let keys = core.getInput("key_paths", {required: true}).split(",");
     let value = core.getInput("set_value", {required: true});
     try {
         await updateYaml(filePath, keys, value);
