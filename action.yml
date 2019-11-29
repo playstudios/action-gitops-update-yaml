@@ -1,10 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: action-gitops-update-yaml
+description: A Github action for updating values in a yaml file
+author: PlayStudios
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  file_path:
+    description: The yaml file to update
+    required: true
+  key_paths:
+    description: Comma separated keys to update in the yaml
+    required: true
+  set_value:
+    description: The value to set the keys to
+    required: true
 runs:
   using: 'node12'
   main: 'lib/main.js'
