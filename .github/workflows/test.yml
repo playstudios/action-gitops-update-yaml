@@ -17,4 +17,6 @@ jobs:
     - run: npm test
     - uses: ./
       with: 
-        milliseconds: 1000
+        file_path: .github/workflows/test_values.yaml
+        key_paths: a.b.c.tag,d.e.f.tag
+        set_value: hello world
