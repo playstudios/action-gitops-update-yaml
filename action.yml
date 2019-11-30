@@ -2,6 +2,9 @@ name: action-gitops-update-yaml
 description: A Github action for updating values in a yaml file
 author: PlayStudios
 inputs:
+  workdir:
+    description: The directory containing the yaml git repository
+    required: false
   file_path:
     description: The yaml file to update
     required: true

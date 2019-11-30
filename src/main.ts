@@ -12,14 +12,19 @@ export function setValue(str: string, paths: string[], value: string): string {
 
 export async function updateYaml(filePath: string, keys: string[], value: string): Promise<void> {
     let buffer = await fs.readFile(filePath, {});
-    let result = setValue(buffer.toString("UTF-8"), keys, value);
-    await fs.writeFile(filePath, result, {encoding: "UTF-8"})
+    let result = setValue(buffer.toString(), keys, value);
+    await fs.writeFile(filePath, result)
 }
 
 async function run() {
-    let filePath = core.getInput("file_path", {required: true});
-    let keys = core.getInput("key_paths", {required: true}).split(",");
-    let value = core.getInput("set_value", {required: true});
+    let workdir = core.getInput("workdir");
+    if (workdir.length > 0) {
+        process.chdir(workdir);
+    }
+
+    let filePath = core.getInput("file_path");
+    let keys = core.getInput("key_paths").split(",");
+    let value = core.getInput("set_value");
     try {
         await updateYaml(filePath, keys, value);
     } catch (error) {
