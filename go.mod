@@ -1,4 +1,4 @@
-module action-update-yaml
+module action-gitops-update-yaml
 
 go 1.14
 
