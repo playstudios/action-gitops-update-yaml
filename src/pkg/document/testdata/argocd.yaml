@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ci-ea-atlantis
+spec:
+  project: azure-ci-east-asia
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: atlantis
+  syncPolicy: {}
+  source:
+    repoURL: https://kubernetes-charts.storage.googleapis.com
+    chart: atlantis
+    targetRevision: 3.11.0
+    helm:
+      values: |
+        test:
+          enabled: false
+        atlantisUrl: https://atlantis.jarvis.tools
+        defaultTFVersion: 0.12.20
