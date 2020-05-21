@@ -19,7 +19,7 @@ type argoApplicationSpec struct {
 }
 
 type argoApplicationSource struct {
-	TargetRevision string             `yaml:"targetRevision"`
+	TargetRevision string              `yaml:"targetRevision"`
 	Helm           argoApplicationHelm `yaml:"helm"`
 }
 
@@ -71,4 +71,9 @@ func (a *ArgoCD) Get(path string) (interface{}, error) {
 func (a *ArgoCD) Set(path string, v interface{}) error {
 	_, err := walk(strings.Split(path, "."), a.manifest, setValue(v))
 	return err
+}
+
+func (a *ArgoCD) Write(w io.WriteCloser) error {
+	// TODO argoApplicationHelm.Values needs to be encoded as a string, not a map
+	return yaml.NewEncoder(w).Encode(a.manifest)
 }

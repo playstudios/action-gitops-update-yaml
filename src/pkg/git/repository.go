@@ -8,7 +8,6 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/transport"
-	"io"
 	"time"
 )
 
@@ -18,6 +17,8 @@ type Repository struct {
 	auth transport.AuthMethod
 	fs   billy.Filesystem
 }
+
+type File = billy.File
 
 func (r *Repository) Checkout(reference string) error {
 	ref, err := r.repo.Reference(plumbing.ReferenceName(reference), true)
@@ -38,7 +39,7 @@ func (r *Repository) Checkout(reference string) error {
 	return nil
 }
 
-func (r *Repository) ReadFile(name string) (io.Reader, error) {
+func (r *Repository) ReadFile(name string) (File, error) {
 	f, err := r.tree.Filesystem.Open(name)
 	if err != nil {
 		return nil, fmt.Errorf("error opening file %s: %w", name, err)

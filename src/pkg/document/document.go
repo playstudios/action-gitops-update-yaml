@@ -9,6 +9,7 @@ import (
 
 type Document interface {
 	ValueMapper
+	Write(w io.WriteCloser) error
 }
 
 type peekFunc func(r io.Reader) (Document, error)
